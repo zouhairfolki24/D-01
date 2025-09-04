@@ -1,13 +1,15 @@
 #include <stdio.h>
 
-int maximum(int number1, int number2)
+int minimum(int number1, int number2)
 {
-    int max = number1;
-    if (number2 > number1)
+    int min = number1;
+
+    if (number2 < number1)
     {
-        max = number2;
+        min = number2;
     }
-    return max;
+
+    return min;
 }
 
 int main()
@@ -21,7 +23,7 @@ int main()
     printf("Saisir le nombre 2: ");
     scanf("%d", &number2);
 
-    printf("le maximum est: %d", maximum(number1, number2));
+    printf("Le minimum est: ")
 
     return 0;
 }

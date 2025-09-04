@@ -13,7 +13,8 @@ int maximum(int number1, int number2)
 int main()
 {
 
-    int number1, number2;
+    int number1,
+     number2;
 
     printf("Saisir le nombre 1: ");
     scanf("%d", &number1);
