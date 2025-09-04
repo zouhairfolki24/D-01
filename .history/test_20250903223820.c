@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main()
+{
+    char titres[15];
+
+    for (int i = 0; i < 3; i++)
+    {
+        printf("saisir une charactere: ");
+        fgets(titres[i], sizeof(titres[i]), stdin);
+
+        printf("%c\n", characters[i]);
+    }
+
+    return 0;
+}
