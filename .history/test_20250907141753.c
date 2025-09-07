@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+int main() {
+    char titres[3][50] = {{0}}    
+
+
+    return 0;
+}

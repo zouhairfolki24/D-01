@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+void les_nombres(int integers[7], int size_tableau) {
+
+    for (int i=0; i<size_tableau; i++) {
+        integers[i] = 8;
+    }
+
+}
+
+int main() {
+    int integers[7];
+
+    les_nombres(integers, 7);
+
+    for (int i=0; i<7; i++) {
+        printf("%d\n", integers[i]);
+    }
+
+    return 0;
+}

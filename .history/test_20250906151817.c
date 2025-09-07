@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int fibonacci(int niem) {                                                                          
+    switch (niem) {
+        case 0:
+            return 0;
+        case 1:
+            return 1;
+        default:
+            return fibonacci(niem - 1) + fibonacci(niem - 2);
+    }
+}
+
+int main()
+{
+    int niem;
+    printf("Entrer le nombre pour la suite de fibonacci: ")
+    scanf("%d");
+
+    printf("%d", fibonacci(3));
+
+    return 0;
+}

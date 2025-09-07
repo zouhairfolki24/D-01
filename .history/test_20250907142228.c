@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <st
+
+int main() {
+    char titres[3][50] = {{0}};
+    
+    strc
+
+    printf("%s", titres[0]);
+
+
+    return 0;
+}
