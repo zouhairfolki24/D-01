@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <string.h>
+
+struct phone {
+    char name[30];
+    char color[15];
+    float prix;
+};
+
+int main() {
+    struct phone p1 = {"Redmi 9", "black", 1500.0};
+    struct phone p2 = {"J1 ace"};
+
+    return 0;
+}
