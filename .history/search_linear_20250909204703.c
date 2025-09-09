@@ -21,14 +21,13 @@ int main() {
     for (int i = 0; i < len_integers; i++) {
         if (valeur == integers[i]) {
             is_exist = true;
-            break;
         }
     }
 
     if (is_exist) {
-        printf("la valeur existe.\n");
+        printf("la valeur est exists.\n");
     } else {
-        printf("la valeur n'existe pas.\n");
+        printf("la valeur pas exists.\n");
     }
 
     return 0;

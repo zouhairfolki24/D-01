@@ -37,7 +37,7 @@ int main() {
     
     }
     
-    if (!is_exist) {
+    if () {
         printf("le nombre n'existe pas.\n");
     }
 

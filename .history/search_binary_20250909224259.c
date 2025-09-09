@@ -34,12 +34,14 @@ int main() {
             is_exist = true;
             break;
         }
-    
+
+        if (first_index > last_index) {
+            printf("le nombre n'existe pas.\n");
+            break;
+        }
+        
     }
-    
-    if (!is_exist) {
-        printf("le nombre n'existe pas.\n");
-    }
+
 
     return 0;
 }

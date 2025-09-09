@@ -37,8 +37,9 @@ int main() {
     
     }
     
-    if (!is_exist) {
+    if (first_index > last_index) {
         printf("le nombre n'existe pas.\n");
+        break;
     }
 
     return 0;

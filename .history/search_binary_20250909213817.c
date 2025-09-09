@@ -19,27 +19,27 @@ int main() {
 
     int first_index = 0;
     int last_index = len_integers - 1;
-    bool is_exist = false;
-
-    while (first_index <= last_index) {
+    
+    while (true) {
 
         int m = (first_index + last_index) / 2;
         
         if (nombre > integers[m]) {
-            first_index = m + 1;
+            first_index = m;
         } else if (nombre < integers[m]) {
             last_index = m - 1;
         } else {
-            printf("le nombre existe.\n");
-            is_exist = true;
+            printf("le nombre est exists.\n");
             break;
         }
-    
+
+        if (first_index == len_integers - 1 || last_index == 0) {
+            printf("le nombre pas exists.\n");
+            break;
+        }
+        
     }
-    
-    if (!is_exist) {
-        printf("le nombre n'existe pas.\n");
-    }
+
 
     return 0;
 }

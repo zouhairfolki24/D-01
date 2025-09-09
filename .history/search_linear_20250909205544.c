@@ -21,7 +21,6 @@ int main() {
     for (int i = 0; i < len_integers; i++) {
         if (valeur == integers[i]) {
             is_exist = true;
-            break;
         }
     }
 
