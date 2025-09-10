@@ -68,6 +68,19 @@ void ajouter_plusieurs_joueurs(struct Joueur joueurs[], int size_joueurs) {
     }
 }
 
+int trier_nom(struct Joueur joueurs[], int size_joueurs) {
+
+    char characters[size_joueurs];
+    for (int i = 0; i < size_joueurs; i++) {
+        characters[i] = joueurs[i].nomComplet[0];
+    }
+
+    for (int i = 0; i < size_joueurs; i++) {
+        if (characters[i] == )
+    }
+
+}
+
 void affiche_joueurs_nom(struct Joueur joueurs[], int size_joueurs) {
     for (int i = 0; i < size_joueurs; i++) {
         if (joueurs[i].id != -1 &&
