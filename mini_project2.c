@@ -60,14 +60,65 @@ void modifier_contact(struct Contact contacts[], int len_contacts){
 
         strcpy(contacts[index_modifier].numero_telephone, new_telephone);
         strcpy(contacts[index_modifier].mail, new_mail);
-
+        printf("\nLe contact a ete modifie avec succes.\n");
     } else {
-        printf("Le contact n'existe pas.\n");
+        printf("\nLe contact n'existe pas.\n");
     }
 
 
 }
 
+void affiche_contacts(struct Contact contacts[],int size_contacts) {
+    for (int i = 0; i < size_contacts; i++) {
+            if (strcmp(contacts[i].nom, "\0") != 0 && strcmp(contacts[i].numero_telephone, "\0") != 0 && strcmp(contacts[i].mail, "\0") != 0) {
+                printf("\nNom: %s, Numero de telephone: %s, Adresse e-mail: %s.\n", contacts[i].nom, contacts[i].numero_telephone, contacts[i].mail);
+            }
+        }
+}
+
+void recherche_contact(struct Contact contacts[], int size_contacts) {
+        char nom_recherche[30];
+        printf("Entrer le nom: ");
+        fgets(nom_recherche, sizeof(nom_recherche), stdin);
+        nom_recherche[strcspn(nom_recherche, "\n")] = 0;
+
+        int index_recherche = -1;
+        for (int i = 0; i < size_contacts; i++) {
+            if (strcmp(nom_recherche, contacts[i].nom) == 0) {
+                index_recherche = i;
+            }
+        }
+
+        if (index_recherche != -1) {
+            printf("\nNom: %s, Numero de telephone: %s, Adresse e-mail: %s.\n", contacts[index_recherche].nom, contacts[index_recherche].numero_telephone, contacts[index_recherche].mail);
+        } else {
+            printf("\nLe contact n'existe pas!\n");
+        }
+}
+
+void supprimer_contact(struct Contact contacts[], int size_contacts) {
+    char nom_supprimer[30];
+        printf("Entrer le nom: ");
+        fgets(nom_supprimer, sizeof(nom_supprimer), stdin);
+        nom_supprimer[strcspn(nom_supprimer, "\n")] = 0;
+
+        int index_supprimer = -1;
+        for (int i = 0; i < size_contacts; i++) {
+            if (strcmp(nom_supprimer, contacts[i].nom) == 0) {
+                index_supprimer = i;
+            }
+        }
+
+        if (index_supprimer != -1) {
+            strcpy(contacts[index_supprimer].nom, "\0");
+            strcpy(contacts[index_supprimer].numero_telephone, "\0");
+            strcpy(contacts[index_supprimer].mail, "\0");
+            printf("\nLe contact a ete supprime avec succes.\n");
+        } else {
+            printf("\nLe contact n'existe pas!\n");
+        }
+
+}
 
 int main() {
     
@@ -90,6 +141,7 @@ int main() {
                 // Ajouter un contact
                 contact_add = get_infos_contact();
                 ajoute_contact(contacts, contact_add, 100, index);
+                printf("\nLe contact avec ajoute succes.\n");
                 index++;
                 break;
     
@@ -100,22 +152,20 @@ int main() {
     
             case 3:
                 // Supprimer un contact
+                supprimer_contact(contacts, 100);
                 break;
 
             case 4:
                 // Afficher tous les contacts
-                for (int i = 0; i < 100; i++) {
-                    if (strcmp(contacts[i].nom, "\0") != 0 && strcmp(contacts[i].numero_telephone, "\0") != 0 && strcmp(contacts[i].mail, "\0") != 0) {
-                        printf("\nNom: %s, Numero de telephone: %s, Adresse e-mail: %s.\n", contacts[i].nom, contacts[i].numero_telephone, contacts[i].mail);
-                    }
-                }
+                affiche_contacts(contacts, 100);
                 break;
 
             case 5:
                 // Rechercher un contact
+                recherche_contact(contacts, 100);
                 break;
 
-            case 7:
+            case 6:
                 // Quitter
                 return 0;
 
