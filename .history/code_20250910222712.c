@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+void trier_noms(char noms[][30], int size_nom) {
+
+    char valeur_temp;
+    for () {
+        
+    }
+    
+}
+
+int main() {
+    char noms[][30] = {"zouhair", "ahmed", "younes"};
+    trier_noms(noms, 3);
+
+    return 0;
+}

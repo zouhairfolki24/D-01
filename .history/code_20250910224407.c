@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+void trier_noms(char noms[][30], int size_nom) {
+
+
+
+    for (int i = 0; i < size_nom; i++) {
+        printf("%s\n", noms[i]);
+    }
+    
+}
+
+int main() {
+
+    return 0;
+}
