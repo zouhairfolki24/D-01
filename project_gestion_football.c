@@ -12,18 +12,25 @@ struct Joueur {
     int buts;
 };
 
+
 void affiche_menu() {
     char menu[] = {"\n1. Ajoute un joueur\n2. Afficher la list de tous les joueurs.\n3. Modifier un joueur.\n4. Supprimer un joueur.\n5. Recherche un joueur.\n6. Statistiques.\n7. Quitter.\n"};
     printf("%s", menu);
 }
 
-int generate_id(int index) {
-    return index + 3; 
-}
+// int generate_id(int index) {
+//     return index + 3; 
+// }
 
-void ajouter_joueur(struct Joueur joueurs[], int index) {
+struct Joueur joueurs[100]= {0};
+int nbr_players;
+int new_id = 1;
 
-    int id = generate_id(index);
+void ajouter_joueur(/*struct Joueur joueurs[], int index*/) {
+    
+    struct Joueur j;
+    // int id = generate_id(index);
+    j.id = new_id++;
     char nom[30], prenom[30], poste[30];
     int numeroMaillot, age, buts;
 
@@ -51,17 +58,17 @@ void ajouter_joueur(struct Joueur joueurs[], int index) {
     scanf("%d", &buts);
     getchar();
 
-    joueurs[index].id = id;
-    strcpy(joueurs[index].nom, nom);
-    strcpy(joueurs[index].prenom, prenom);
-    joueurs[index].numeroMaillot = numeroMaillot;
-    strcpy(joueurs[index].poste, poste);
-    joueurs[index].age = age;
-    joueurs[index].buts = buts;
+    joueurs[nbr_players++] = j;
+    // strcpy(joueurs[nbr_players].nom, nom);
+    // strcpy(joueurs[index].prenom, prenom);
+    // joueurs[index].numeroMaillot = numeroMaillot;
+    // strcpy(joueurs[index].poste, poste);
+    // joueurs[index].age = age;
+    // joueurs[index].buts = buts;
 
 }
 
-void ajouter_plusieurs_joueurs(struct Joueur joueurs[], int size_joueurs) {
+void ajouter_plusieurs_joueurs(struct Joueur joueurs[]) {
     
     int nombre_joueurs;
     printf("Entrer le nombre de joueures: ");
@@ -70,26 +77,26 @@ void ajouter_plusieurs_joueurs(struct Joueur joueurs[], int size_joueurs) {
 
     for (int i = 0; i < nombre_joueurs; i++) {
         printf("\nJoueur %d: ", i + 1);
-        ajouter_joueur(joueurs, i);
+        // ajouter_joueur(joueurs, i);
     }
 }
 
 int calcule_nbr_joueurs(struct Joueur joueurs[], int size_joueurs) {
     int nbr_joueurs = 0;
     for (int i = 0; i < size_joueurs; i++) {
-        if (strcmp(joueurs[i].nom, "\0") != 0) {
+        if (joueurs[i].id != 0) {
             nbr_joueurs++;
         }
     }
     return nbr_joueurs;
 }
 
-void trier_noms(char noms[][30], int size_joueurs) {
+void trier_noms(char noms[][30], int nbr_joueurs) {
     
         char valeur_temp[30];
-        for (int i = 0; i < size_joueurs - 1; i++) {
+        for (int i = 0; i < nbr_joueurs - 1; i++) {
             int swapped = 0;
-            for (int j = 0; j < size_joueurs - i - 1; j++) {
+            for (int j = 0; j < nbr_joueurs - i - 1; j++) {
                 if (strcmp(noms[j], noms[j+1]) > 0) {
                     strcpy(valeur_temp, noms[j]);
                     strcpy(noms[j], noms[j+1]);
@@ -106,13 +113,9 @@ void trier_noms(char noms[][30], int size_joueurs) {
 void affiche_joueurs_nom(struct Joueur joueurs[], int nbr_joueurs) {
 
     char noms[nbr_joueurs][30];
-    // int j = 0;
     for (int i = 0; i < nbr_joueurs; i++) {
-        // if (strcmp(joueurs[i].nom, "\0") != 0) {
         strcpy(noms[i], joueurs[i].nom);
-        // j++;
         }
-    // }
 
     trier_noms(noms, nbr_joueurs);
 
@@ -126,10 +129,9 @@ void affiche_joueurs_nom(struct Joueur joueurs[], int nbr_joueurs) {
 
 int main() {
 
-    struct Joueur joueurs[100] = {0};
+    // struct Joueur joueurs[100] = {0};
     int index = 0;
     bool check_1 = true, check_2 = true;
-    int nbr_joueurs;
 
     while (true) {
 
@@ -154,12 +156,12 @@ int main() {
     
                     switch(choix_ajout) {
                         case '1':
-                            ajouter_joueur(joueurs, index);
-                            index++;
+                            ajouter_joueur(/*joueurs, index*/);
+                            // index++;
                             check_1 = false;
                             break;
                         case '2':
-                            ajouter_plusieurs_joueurs(joueurs, 100);
+                            ajouter_plusieurs_joueurs(joueurs);
                             check_1 = false;
                             break;
                         default:
@@ -184,17 +186,17 @@ int main() {
                     
                     switch(choix_affiche) {
                         case '1':
-                            nbr_joueurs = calcule_nbr_joueurs(joueurs, 100);
+                            // Trier les joueurs par Nom (A->Z);
+                            int nbr_joueurs = calcule_nbr_joueurs(joueurs, 100);
                             affiche_joueurs_nom(joueurs, nbr_joueurs);
-                            // affiche_joueurs_nom();
                             check_2 = false;
                             break;
                         case '2':
-                            // affiche_joueurs_age();
+                            // Trier les joueurs par age.
                             check_2 = false;
                             break;
                         case '3':
-                            // affiche_joueurs_poste();
+                            // Trier les joueurs par post.
                             check_2 = false;
                             break;
                         default:
