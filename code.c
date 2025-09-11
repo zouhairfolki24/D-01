@@ -174,12 +174,47 @@ void affiche_joueurs_poste(struct Joueur joueurs[], int nombre_joueurs, char pos
         } 
 }
 
+int recherche_joueur_id(struct Joueur joueurs[], int nombre_joueurs, int id) {
+    for (int i = 0; i < nombre_joueurs; i++) {
+        if (id == joueurs[i].id) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int recherche_joueur_nom(struct Joueur joueurs[], int nombre_joueurs, char nom[]) {
+    for (int i = 0; i < nombre_joueurs; i++) {
+        if (strcmp(nom, joueurs[i].nom) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void modifier_poste_joueur(struct Joueur joueurs[], int nombre_joueurs, int new_id) {
+    int pos_joueur = recherche_joueur_id(joueurs, nombre_joueurs, new_id);
+
+    if (pos_joueur != -1) {
+
+        char new_poste[30];
+        printf("Entrer le nouveau poste: ");
+        fgets(new_poste, sizeof(new_poste), stdin);
+
+        strcpy(joueurs[pos_joueur].poste, new_poste);
+    } else {
+        printf("\nLe joueur n'existe pas!\n");
+    }
+}
+
 int main() {
     
     int index = 0;
-    bool check_1 = true, check_2 = true;
+    bool check_1 = true, check_2 = true, check_3 = true, check_5 = true;
     int nombre_joueurs;
     char poste[30];
+    int id, pos_joueur;
     
     while (true) {
         
@@ -225,7 +260,7 @@ int main() {
             // Afficher la list de tous les joueurs
             while (check_2) {
                 
-                printf("\n1. les joueurs trier par ordre alphabetique.\n2. les joueurs trier par age.\n3. les joureurs trier par poste.\n4. ");
+                printf("\n1. les joueurs trier par ordre alphabetique.\n2. les joueurs trier par age.\n3. les joureurs trier par poste.\n#. Menu principale.\n");
                 
                 char choix_affiche;
                 printf("\nEntrer votre choix: ");
@@ -267,10 +302,105 @@ int main() {
                 check_2 = true;
                 break;
             case '3':
+                // Modifier un joueur
+                while (check_3) {
+                    
+                    printf("\n1. Modifier le poste d'un joueur.\n2. Modifier l'age d'un joueur.\n3. Modifier le nombre des buts marques par un joueur.\n#. Menu principale.\n");
+
+                    char choix_modifier;
+                    printf("\nEntrer votre choix: ");
+                    scanf("%c", &choix_modifier);
+                    getchar();
+
+                    switch(choix_modifier) {
+                        case '1':
+                            // Modifier le poste d'un joueur (ID)
+
+                            int new_id;
+                            printf("Entrer ID: ");
+                            scanf("%d", &new_id);
+                            getchar();
+
+                            modifier_poste_joueur(joueurs, nombre_joueurs, new_id);
+
+                            check_3 = false;
+                            break;
+                        case '2':
+                            check_3 = false;
+                            break;
+                        case '3':
+                            check_3 = false;
+                            break;
+                        case '#':
+                            check_3 = false;
+                            break;
+                        default:
+                            printf("\nInvalid choix!\n");
+                            break;
+                    }
+                }
+                check_3 = true;
                 break;
             case '4':
                 break;
             case '5':
+                // Rechercher un joueur
+                while (check_5) {
+
+                    printf("\n1. Recherche un joueur par ID.\n2. Rechercher un joueur par Nom.\n#. Menu principale.\n");
+
+                    char choix_recherche;
+                    printf("\nEntrer votre choix: ");
+                    scanf("%c", &choix_recherche);
+                    getchar();
+                    
+                    switch(choix_recherche) {
+                        case '1':
+                            // Recherche un joueur par ID
+                            nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
+
+                            printf("Entrer ID: ");
+                            scanf("%d", &id);
+                            getchar();
+                            
+                            pos_joueur = recherche_joueur_id(joueurs, nombre_joueurs, id);
+
+                            if (pos_joueur != -1) {
+                                printf("\nID: %d, Nom: %s, Prenom: %s, Numero Maillot: %d, Poste: %s, Age: %d, Buts: %d.\n", joueurs[pos_joueur].id, joueurs[pos_joueur].nom, joueurs[pos_joueur].prenom, joueurs[pos_joueur].numeroMaillot, joueurs[pos_joueur].poste, joueurs[pos_joueur].age, joueurs[pos_joueur].buts);
+                            } else {
+                                printf("\nLe joueur n'existe pas!\n");
+                            }
+
+                            check_5 = false;
+                            break;
+                        case '2':
+                            // Recherche un joueur par Nom
+                            nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
+
+                            char nom[30];
+                            printf("Entrer Nom: ");
+                            fgets(nom, sizeof(nom), stdin);
+                            nom[strcspn(nom, "\n")] = 0;
+                            
+                            pos_joueur = recherche_joueur_nom(joueurs, nombre_joueurs, nom);
+
+                            if (pos_joueur != -1) {
+                                printf("\nID: %d, Nom: %s, Prenom: %s, Numero Maillot: %d, Poste: %s, Age: %d, Buts: %d.\n", joueurs[pos_joueur].id, joueurs[pos_joueur].nom, joueurs[pos_joueur].prenom, joueurs[pos_joueur].numeroMaillot, joueurs[pos_joueur].poste, joueurs[pos_joueur].age, joueurs[pos_joueur].buts);
+                            } else {
+                                printf("\nLe joueur n'existe pas!\n");
+                            }
+
+                            check_5 = false;
+                            break;
+                        case '#':
+                            check_5 = false;
+                            break;
+                        default:
+                            printf("\nInvalid choix!\n");
+                            break;
+                    }
+                }
+                check_5 = true;
                 break;
             case '6':
                 break;
