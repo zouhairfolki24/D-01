@@ -208,10 +208,42 @@ void modifier_poste_joueur(struct Joueur joueurs[], int nombre_joueurs, int new_
     }
 }
 
+void modifier_age_joueur(struct Joueur joueurs[], int nombre_joueurs, int new_id) {
+    int pos_joueur = recherche_joueur_id(joueurs, nombre_joueurs, new_id);
+
+    if (pos_joueur != -1) {
+
+        int new_age;
+        printf("Entrer le nouveau age: ");
+        scanf("%d", &new_age);
+        getchar();
+
+        joueurs[pos_joueur].age = new_age;
+    } else {
+        printf("\nLe joueur n'existe pas!\n");
+    }
+}
+
+void modifier_buts_joueur(struct Joueur joueurs[], int nombre_joueurs, int new_id) {
+    int pos_joueur = recherche_joueur_id(joueurs, nombre_joueurs, new_id);
+
+    if (pos_joueur != -1) {
+
+        int new_buts;
+        printf("Entrer le nouveau buts: ");
+        scanf("%d", &new_buts);
+        getchar();
+
+        joueurs[pos_joueur].buts = new_buts;
+    } else {
+        printf("\nLe joueur n'existe pas!\n");
+    }
+}
+
 int main() {
     
     int index = 0;
-    bool check_1 = true, check_2 = true, check_3 = true, check_5 = true;
+    bool check_1 = true, check_2 = true, check_3 = true, check_4 = true, check_5 = true;
     int nombre_joueurs;
     char poste[30];
     int id, pos_joueur;
@@ -316,19 +348,36 @@ int main() {
                         case '1':
                             // Modifier le poste d'un joueur (ID)
 
-                            int new_id;
+                            int new_id_1;
                             printf("Entrer ID: ");
-                            scanf("%d", &new_id);
+                            scanf("%d", &new_id_1);
                             getchar();
 
-                            modifier_poste_joueur(joueurs, nombre_joueurs, new_id);
+                            modifier_poste_joueur(joueurs, nombre_joueurs, new_id_1);
 
                             check_3 = false;
                             break;
                         case '2':
+                            // Modifier l'age d'un joueur
+                            
+                            int new_id_2;
+                            printf("Entrer ID: ");
+                            scanf("%d", &new_id_2);
+                            getchar();
+                            
+                            modifier_age_joueur(joueurs, nombre_joueurs, new_id_2);
+
                             check_3 = false;
                             break;
                         case '3':
+
+                            int new_id_3;
+                            printf("Entrer ID: ");
+                            scanf("%d", &new_id_3);
+                            getchar();
+
+                            modifier_buts_joueur(joueurs, nombre_joueurs, new_id_3);
+
                             check_3 = false;
                             break;
                         case '#':
@@ -342,6 +391,18 @@ int main() {
                 check_3 = true;
                 break;
             case '4':
+                // Supprimer un joueur
+                while (check_4) {
+                    
+                    printf("\n1. Supprimer un joueur par ID.\n#. Menu principale.\n");
+                    
+                    char choix_supprimer;
+                    printf("\nEntrer votre choix: ");
+                    scanf("%c", &choix_supprimer);
+                    getchar();
+
+                }
+
                 break;
             case '5':
                 // Rechercher un joueur
