@@ -13,10 +13,30 @@ struct Joueur
     int buts;
 };
 
-// struct Joueur joueurs[100] = {0};
-struct Joueur joueurs[100] = {{3, "folki", "zouhair", 8, "milieu", 24, 4},
-                              {6, "dachi", "zakaria", 7, "attaquant", 25, 3},
-                              {9, "bougam", "younes", 1, "gardien", 23, 0}};
+struct Joueur joueurs[100] = {0};
+
+void remplissage_infos_joueur() {
+    struct Joueur joueur1 = {3, "folki", "zouhair", 8, "milieu", 24, 4};
+    joueurs[0] = joueur1;
+
+    struct Joueur joueur2 = {6, "dachi", "zakaria", 7, "attaquant", 25, 3};
+    joueurs[1] = joueur2;
+
+    struct Joueur joueur3 = {9, "bougam", "younes", 1, "gardien", 23, 0};
+    joueurs[2] = joueur3;
+
+    struct Joueur joueur4 = {12, "jahri", "mohamed", 6, "milieu", 24, 3};
+    joueurs[3] = joueur4;
+
+    struct Joueur joueur5 = {15, "dahloune","zakaria", 2, "defenseur", 23, 1};
+    joueurs[4] = joueur5;
+
+    struct Joueur joueur6 = {18, "aoudi", "ahmed", 7, "attaquant", 28, 5};
+    joueurs[5] = joueur6;
+
+    struct Joueur joueur7 = {21, "dari", "achraf", 8, "milieu", 19, 2};
+    joueurs[6] = joueur7;
+}
 
 void affiche_menu()
 {
@@ -27,6 +47,15 @@ void affiche_menu()
 int generate_id(int index)
 {
     return (index + 1) * 3;
+}
+
+int check_tableau_joueurs(struct Joueur joueurs[], int size_joueurs) {
+    for (int i = 0; i < size_joueurs; i++) {
+        if (joueurs[i].id == 0) {
+            return i;
+        }
+    }
+    return -1;    
 }
 
 void ajouter_joueur(struct Joueur joueurs[], int index)
@@ -60,7 +89,7 @@ void ajouter_joueur(struct Joueur joueurs[], int index)
     getchar();
 
     joueurs[index] = joueur;
-    printf("\nAjoute succes.\n");
+    printf("\nLe joueur a ete ajoute avec succes.\n");
 }
 
 void ajouter_plusieurs_joueurs(struct Joueur joueurs[], int index)
@@ -307,15 +336,18 @@ void affiche_joueurs_plusbuts(struct Joueur joueurs[], int nombre_joueurs, int x
 void affiche_meilleur_butteur(struct Joueur joueurs[], int nombre_joueurs) {
 
     int max = joueurs[0].buts;
+    int pos_max = 0;
     for (int i = 1; i < nombre_joueurs; i++) {
         if (joueurs[i].id != 0) {
             if (joueurs[i].buts > max) {
                 max = joueurs[i].buts;
+                pos_max = i;
             }
         }
     }
 
-    printf("\nLe meilleur buteur: %d\n", max);
+    printf("\nLe meilleur buteur: \n");
+    printf("ID: %d, Nom: %s, Prenom: %s, Numero Maillot: %d, Poste: %s, Age: %d, Buts: %d.\n", joueurs[pos_max].id, joueurs[pos_max].nom, joueurs[pos_max].prenom, joueurs[pos_max].numeroMaillot, joueurs[pos_max].poste, joueurs[pos_max].age, joueurs[pos_max].buts);
 }
 
 void affiche_jeune_plus(struct Joueur joueurs[], int nombre_joueurs) {
@@ -355,6 +387,8 @@ int main()
     int id, pos_joueur, x_buts;
     float moyen_ages;
 
+    remplissage_infos_joueur();
+
     while (true)
     {
 
@@ -372,7 +406,7 @@ int main()
             while (check_1)
             {
 
-                printf("\n1. Ajouter un joueur.\n2. Ajouter plusieurs.\n");
+                printf("\n1. Ajouter un joueur.\n2. Ajouter plusieurs.\n#. Menu principale.\n");
 
                 char choix_ajout;
                 printf("\nEntrer votre choix: ");
@@ -382,12 +416,14 @@ int main()
                 switch (choix_ajout)
                 {
                 case '1':
+                    index = check_tableau_joueurs(joueurs, 100);
                     ajouter_joueur(joueurs, index);
                     index++;
-                    check_1 = false;
                     break;
                 case '2':
                     ajouter_plusieurs_joueurs(joueurs, index);
+                    break;
+                case '#':
                     check_1 = false;
                     break;
                 default:
@@ -403,7 +439,7 @@ int main()
             while (check_2)
             {
 
-                printf("\n1. les joueurs trier par ordre alphabetique.\n2. les joueurs trier par age.\n3. les joureurs trier par poste.\n#. Menu principale.\n");
+                printf("\n1. les joueurs trier par ordre alphabetique.\n2. les joueurs trier par age.\n3. les joueurs trier par poste.\n#. Menu principale.\n");
 
                 char choix_affiche;
                 printf("\nEntrer votre choix: ");
@@ -416,13 +452,11 @@ int main()
                     // Trier les joueurs par Nom (A->Z)
                     nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
                     affiche_joueurs_nom(joueurs, nombre_joueurs);
-                    check_2 = false;
                     break;
                 case '2':
                     // Trier les joueurs par age;
                     nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
                     affiche_joueurs_age(joueurs, nombre_joueurs);
-                    check_2 = false;
                     break;
                 case '3':
                     // Afficher Les joueurs par poste;
@@ -433,7 +467,6 @@ int main()
                     nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
                     affiche_joueurs_poste(joueurs, nombre_joueurs, poste);
 
-                    check_2 = false;
                     break;
                 case '#':
                     check_2 = false;
@@ -469,7 +502,6 @@ int main()
                     nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
                     modifier_poste_joueur(joueurs, nombre_joueurs, id);
 
-                    check_3 = false;
                     break;
                 case '2':
                     // Modifier l'age d'un joueur
@@ -481,7 +513,6 @@ int main()
                     nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
                     modifier_age_joueur(joueurs, nombre_joueurs, id);
 
-                    check_3 = false;
                     break;
                 case '3':
                     // Modifier buts par joueur
@@ -493,7 +524,6 @@ int main()
                     nombre_joueurs = calcule_nbr_joueurs(joueurs, 100);
                     modifier_buts_joueur(joueurs, nombre_joueurs, id);
 
-                    check_3 = false;
                     break;
                 case '#':
                     check_3 = false;
@@ -549,7 +579,6 @@ int main()
                         printf("\nLe joueur n'existe pas!\n");
                     }
 
-                    check_5 = false;
                     break;
                 case '2':
                     // Recherche un joueur par Nom
@@ -570,7 +599,6 @@ int main()
                         printf("\nLe joueur n'existe pas!\n");
                     }
 
-                    check_5 = false;
                     break;
                 case '#':
                     check_5 = false;
@@ -587,7 +615,7 @@ int main()
             while (check_6)
             {
 
-                printf("\n1. Afficher le nombre total de joueurs dans equipe.\n2. Afficher l'age moyen des joueurs.\n3. Afficher les joueurs ayant marque plus de X buts.\n4. Afficher le meilleur buteur.\n5. Afficher le joueur le plus jeune et le plus age.\n");
+                printf("\n1. Afficher le nombre total de joueurs dans equipe.\n2. Afficher l'age moyen des joueurs.\n3. Afficher les joueurs ayant marque plus de X buts.\n4. Afficher le meilleur buteur.\n5. Afficher le joueur le plus jeune et le plus age.\n#. Menu principale.\n");
 
                 char choix_statistique;
                 printf("\nEntrer votre choix: ");
@@ -648,9 +676,6 @@ int main()
             break;
         case '7':
             return 0;
-            break;
         }
     }
-
-    return 0;
 }
